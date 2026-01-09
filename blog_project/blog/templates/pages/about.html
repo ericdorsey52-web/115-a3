@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}About - Blog Platform{% endblock %}
+
+{% block content %}
+<div class="container">
+    <article style="max-width: 800px; margin: 0 auto;">
+        <h1>About Our Blog Platform</h1>
+
+        <p style="font-size: 16px; color: var(--secondary-gray-medium); margin-bottom: var(--spacing-lg);">
+            A modern, user-friendly platform designed for sharing ideas and building community
+        </p>
+
+        <section style="margin-bottom: var(--spacing-xl);">
+            <h2>Our Mission</h2>
+            <p>
+                We believe in the power of storytelling and shared knowledge. Our blog platform 
+                provides a simple, elegant space for writers and readers to connect, inspire, 
+                and grow together.
+            </p>
+        </section>
+
+        <section style="margin-bottom: var(--spacing-xl);">
+            <h2>Design Philosophy</h2>
+            <p>
+                This platform was designed with Figma following user-centered design principles:
+            </p>
+            <ul style="margin-left: var(--spacing-lg);">
+                <li><strong>Simple & Clear:</strong> Intuitive navigation and form design</li>
+                <li><strong>Accessible:</strong> Clear typography and color contrast</li>
+                <li><strong>Consistent:</strong> Unified design system across all pages</li>
+                <li><strong>Responsive:</strong> Works beautifully on all devices</li>
+            </ul>
+        </section>
+
+        <section style="margin-bottom: var(--spacing-xl);">
+            <h2>Technology Stack</h2>
+            <p>
+                Built with Django and HTML/CSS following best practices for scalability 
+                and maintainability.
+            </p>
+        </section>
+
+        <div style="text-align: center;">
+            <a href="{% url 'home' %}" class="btn btn-primary">Back to Blog</a>
+        </div>
+    </article>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Blog Platform{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/design_system.css' %}">
+    <style>
+        /* Additional page-specific styles can be added here */
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <!-- Header Navigation -->
+        <header>
+            <div class="header-container">
+                <a href="{% url 'home' %}" class="logo">
+                    <img src="{% static 'images/logo.svg' %}" alt="Blog Logo" class="site-logo" style="height:36px; display:inline-block; vertical-align:middle;">
+                </a>
+                <nav>
+                    <ul class="nav-links">
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'about' %}">About</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a href="{% url 'create_blog' %}">Create Post</a></li>
+                            <li><span>{{ user.first_name|default:user.username }}</span></li>
+                            <li><a href="{% url 'logout' %}" class="btn btn-secondary" style="padding: 6px 12px; font-size: 14px;">Log Out</a></li>
+                        {% else %}
+                            <li><a href="{% url 'login' %}">Log In</a></li>
+                            <li><a href="{% url 'signup' %}" class="btn btn-primary" style="padding: 6px 12px; font-size: 14px;">Sign Up</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Messages (Alerts) -->
+        <div class="container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %}" style="margin-top: var(--spacing-md);">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <!-- Page Content -->
+        <main class="page-content">
+            {% block content %}{% endblock %}
+        </main>
+
+        <!-- Footer -->
+        <footer style="background-color: var(--secondary-gray-light); padding: var(--spacing-lg); text-align: center; border-top: 1px solid var(--border-gray);">
+            <div class="container">
+                <p style="margin: 0; color: var(--secondary-gray-medium); font-size: var(--font-size-label);">
+                    &copy; 2024 Blog Platform. Designed with Figma & Built with Django.
+                </p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

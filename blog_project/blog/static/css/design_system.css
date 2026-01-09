@@ -1,0 +1,657 @@
+/*
+================================================================================
+DESIGN SYSTEM & REUSABLE UI COMPONENTS
+
+Figma Alignment:
+- This CSS file implements the high-fidelity design system created in Figma
+- Components map directly to Figma components
+- Colors, typography, and spacing follow the Figma design system
+
+Color Palette (from Figma Design System):
+- Primary Orange: #FF6B35
+- Secondary Gray: #4A4A4A
+- Accent Blue: #006BFF
+- Light Gray: #F5F5F5
+- White: #FFFFFF
+- Border Gray: #E0E0E0
+- Dark Text: #1F1F1F
+
+Typography:
+- Headlines: 28px, Weight 700 (Bold)
+- Subheadings: 18px, Weight 600 (Semi-bold)
+- Body Text: 14px, Weight 400 (Regular)
+- Labels: 12px, Weight 500 (Medium)
+- Buttons: 16px, Weight 600 (Semi-bold)
+
+Spacing System (8px grid):
+- XSmall: 4px
+- Small: 8px
+- Medium: 16px
+- Large: 24px
+- XLarge: 32px
+
+================================================================================
+*/
+
+/* ============================================================================
+   1. GLOBAL STYLES & RESETS
+   ============================================================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Primary Colors */
+    --primary-orange: #FF6B35;
+    --primary-orange-hover: #E55A2B;
+    --primary-orange-dark: #CC5229;
+
+    /* Secondary Colors */
+    --secondary-gray: #4A4A4A;
+    --secondary-gray-light: #F5F5F5;
+    --secondary-gray-medium: #9CA3AF;
+
+    /* Accent Colors */
+    --accent-blue: #006BFF;
+    --accent-blue-hover: #0052CC;
+
+    /* Neutral Colors */
+    --white: #FFFFFF;
+    --black: #1F1F1F;
+    --border-gray: #E0E0E0;
+    --bg-light: #FAFAFA;
+
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+
+    /* Typography */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-size-body: 14px;
+    --font-size-label: 12px;
+    --font-size-button: 16px;
+    --font-size-heading-1: 28px;
+    --font-size-heading-2: 18px;
+}
+
+html,
+body {
+    font-family: var(--font-family);
+    font-size: var(--font-size-body);
+    line-height: 1.6;
+    color: var(--black);
+    background-color: var(--white);
+}
+
+/* ============================================================================
+   2. BUTTON COMPONENT
+   Maps to Figma: Button/Primary, Button/Secondary
+   ============================================================================ */
+
+.btn {
+    /* Base button styling */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border: none;
+    border-radius: 8px;
+    font-size: var(--font-size-button);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    font-family: var(--font-family);
+    min-height: 48px;
+    gap: var(--spacing-sm);
+}
+
+/* Primary Button (Orange) */
+.btn-primary {
+    background-color: var(--primary-orange);
+    color: var(--white);
+    box-shadow: 0px 2px 8px rgba(255, 107, 53, 0.15);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-orange-hover);
+    box-shadow: 0px 4px 12px rgba(255, 107, 53, 0.25);
+    transform: translateY(-2px);
+}
+
+.btn-primary:active {
+    background-color: var(--primary-orange-dark);
+    transform: translateY(0);
+}
+
+.btn-primary:disabled {
+    background-color: var(--secondary-gray-medium);
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Secondary Button (Gray) */
+.btn-secondary {
+    background-color: var(--secondary-gray-light);
+    color: var(--black);
+    border: 1px solid var(--border-gray);
+}
+
+.btn-secondary:hover {
+    background-color: var(--white);
+    border-color: var(--primary-orange);
+    color: var(--primary-orange);
+}
+
+/* Tertiary Button (Blue Link) */
+.btn-tertiary {
+    background-color: transparent;
+    color: var(--accent-blue);
+    text-decoration: none;
+    border: none;
+    padding: 0;
+    font-size: var(--font-size-body);
+    font-weight: 500;
+}
+
+.btn-tertiary:hover {
+    text-decoration: underline;
+    color: var(--accent-blue-hover);
+}
+
+/* Full-width button */
+.btn-full {
+    width: 100%;
+}
+
+/* ============================================================================
+   3. INPUT FIELD COMPONENT
+   Maps to Figma: Input/Text Field, Input/Text Field - Focused
+   ============================================================================ */
+
+.form-group {
+    margin-bottom: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Input label styling */
+.form-label {
+    font-size: var(--font-size-label);
+    font-weight: 500;
+    color: var(--black);
+    margin-bottom: var(--spacing-sm);
+    display: block;
+}
+
+.form-label-required::after {
+    content: ' *';
+    color: var(--primary-orange);
+}
+
+/* Input field styling */
+.form-control {
+    /* Base input styling */
+    padding: var(--spacing-md);
+    border: 1px solid var(--border-gray);
+    border-radius: 6px;
+    font-size: var(--font-size-body);
+    font-family: var(--font-family);
+    background-color: var(--white);
+    transition: all 0.3s ease;
+    line-height: 1.5;
+}
+
+/* Input placeholder */
+.form-control::placeholder {
+    color: var(--secondary-gray-medium);
+    font-weight: 400;
+}
+
+/* Input focus state */
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-orange);
+    box-shadow: 0px 0px 0px 3px rgba(255, 107, 53, 0.1);
+    background-color: var(--white);
+}
+
+/* Input hover state */
+.form-control:hover:not(:focus) {
+    border-color: var(--secondary-gray-medium);
+}
+
+/* Input disabled state */
+.form-control:disabled {
+    background-color: var(--secondary-gray-light);
+    color: var(--secondary-gray-medium);
+    cursor: not-allowed;
+}
+
+/* Input error state */
+.form-control.is-invalid {
+    border-color: #EF4444;
+    background-color: rgba(239, 68, 68, 0.05);
+}
+
+.form-control.is-invalid:focus {
+    box-shadow: 0px 0px 0px 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Error message styling */
+.form-error {
+    color: #EF4444;
+    font-size: var(--font-size-label);
+    margin-top: var(--spacing-xs);
+    display: block;
+}
+
+/* Success message styling */
+.form-success {
+    color: #10B981;
+    font-size: var(--font-size-label);
+    margin-top: var(--spacing-xs);
+    display: block;
+}
+
+/* ============================================================================
+   4. SHAPE COMPONENTS
+   Maps to Figma: Shape/Circle, Shape/Square
+   ============================================================================ */
+
+/* Circular shape component (Avatar) */
+.shape-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--secondary-gray-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--border-gray);
+    overflow: hidden;
+}
+
+.shape-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.shape-circle.primary {
+    background-color: var(--primary-orange);
+    border-color: var(--primary-orange);
+}
+
+/* Square shape component (Card) */
+.shape-square {
+    width: 100%;
+    border-radius: 8px;
+    background-color: var(--white);
+    border: 1px solid var(--border-gray);
+    transition: all 0.3s ease;
+}
+
+.shape-square:hover {
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+    border-color: var(--primary-orange);
+}
+
+/* ============================================================================
+   5. CARD COMPONENT (Blog Post Card)
+   Maps to Figma: Blog Card Component
+   ============================================================================ */
+
+.card {
+    background-color: var(--white);
+    border: 1px solid var(--border-gray);
+    border-radius: 8px;
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    transition: all 0.3s ease;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.card:hover {
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+    border-color: var(--primary-orange);
+    transform: translateY(-2px);
+}
+
+.card-header {
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.card-title {
+    font-size: var(--font-size-heading-2);
+    font-weight: 600;
+    color: var(--black);
+    margin: 0;
+}
+
+.card-subtitle {
+    font-size: var(--font-size-label);
+    color: var(--secondary-gray-medium);
+    margin: var(--spacing-xs) 0 0 0;
+}
+
+.card-content {
+    color: var(--secondary-gray);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--border-gray);
+    font-size: var(--font-size-label);
+    color: var(--secondary-gray-medium);
+}
+
+/* ============================================================================
+   6. HEADER & NAVIGATION
+   ============================================================================ */
+
+header {
+    background-color: var(--white);
+    border-bottom: 1px solid var(--border-gray);
+    padding: var(--spacing-md) 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: var(--font-size-heading-2);
+    font-weight: 700;
+    color: var(--primary-orange);
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: var(--spacing-lg);
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--black);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-orange);
+}
+
+/* ============================================================================
+   7. ALERT & MESSAGE COMPONENTS
+   ============================================================================ */
+
+.alert {
+    padding: var(--spacing-md);
+    border-radius: 6px;
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--font-size-body);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+}
+
+.alert-success {
+    background-color: rgba(16, 185, 129, 0.1);
+    border: 1px solid #10B981;
+    color: #047857;
+}
+
+.alert-error {
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid #EF4444;
+    color: #DC2626;
+}
+
+.alert-warning {
+    background-color: rgba(245, 158, 11, 0.1);
+    border: 1px solid #F59E0B;
+    color: #D97706;
+}
+
+.alert-info {
+    background-color: rgba(59, 130, 246, 0.1);
+    border: 1px solid #3B82F6;
+    color: #1D4ED8;
+}
+
+/* ============================================================================
+   8. TYPOGRAPHY
+   ============================================================================ */
+
+h1 {
+    font-size: var(--font-size-heading-1);
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.3;
+}
+
+h2 {
+    font-size: var(--font-size-heading-2);
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: var(--spacing-md);
+}
+
+h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: var(--spacing-sm);
+}
+
+p {
+    margin-bottom: var(--spacing-md);
+    line-height: 1.6;
+}
+
+a {
+    color: var(--accent-blue);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--accent-blue-hover);
+    text-decoration: underline;
+}
+
+small {
+    font-size: var(--font-size-label);
+    color: var(--secondary-gray-medium);
+}
+
+/* ============================================================================
+   9. LAYOUT & CONTAINERS
+   ============================================================================ */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+.page-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-content {
+    flex: 1;
+    padding: var(--spacing-xl) 0;
+}
+
+.section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.section-title {
+    font-size: var(--font-size-heading-1);
+    font-weight: 700;
+    margin-bottom: var(--spacing-lg);
+    color: var(--black);
+}
+
+/* ============================================================================
+   10. FORM STYLING
+   ============================================================================ */
+
+.form-container {
+    max-width: 400px;
+    margin: var(--spacing-xl) auto;
+    padding: var(--spacing-lg);
+    background-color: var(--secondary-gray-light);
+    border-radius: 8px;
+    border: 1px solid var(--border-gray);
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.form-header h1 {
+    margin-bottom: var(--spacing-sm);
+}
+
+.form-header p {
+    color: var(--secondary-gray-medium);
+    margin: 0;
+}
+
+.form-footer {
+    text-align: center;
+    margin-top: var(--spacing-lg);
+    font-size: var(--font-size-body);
+}
+
+.form-footer a {
+    color: var(--accent-blue);
+    font-weight: 500;
+}
+
+/* ============================================================================
+   11. RESPONSIVE DESIGN
+   ============================================================================ */
+
+@media (max-width: 768px) {
+    :root {
+        --spacing-lg: 16px;
+        --spacing-xl: 24px;
+    }
+
+    .header-container {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+
+    .form-container {
+        margin: var(--spacing-lg);
+        padding: var(--spacing-md);
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .card {
+        padding: var(--spacing-md);
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 20px;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+        width: 100%;
+    }
+
+    .form-container {
+        padding: var(--spacing-md);
+    }
+}
+
+/* ============================================================================
+   12. UTILITY CLASSES
+   ============================================================================ */
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.mt-sm {
+    margin-top: var(--spacing-sm);
+}
+
+.mt-md {
+    margin-top: var(--spacing-md);
+}
+
+.mt-lg {
+    margin-top: var(--spacing-lg);
+}
+
+.mb-sm {
+    margin-bottom: var(--spacing-sm);
+}
+
+.mb-md {
+    margin-bottom: var(--spacing-md);
+}
+
+.mb-lg {
+    margin-bottom: var(--spacing-lg);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.visible {
+    display: block !important;
+}

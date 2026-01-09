@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Blog Platform{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Hero Section -->
+    <section class="section" style="text-align: center; padding: var(--spacing-xl) 0;">
+        <h1>Welcome to Our Blog</h1>
+        <p style="font-size: 16px; color: var(--secondary-gray-medium); max-width: 500px; margin: 0 auto;">
+            Discover amazing stories, insights, and ideas from our community of writers
+        </p>
+        <div style="margin-top: var(--spacing-md);">
+            <img src="{% static 'images/hero.svg' %}" alt="Hero image" style="max-width: 100%; height: auto; border-radius: 8px;">
+        </div>
+        {% if not user.is_authenticated %}
+            <div style="margin-top: var(--spacing-lg);">
+                <a href="{% url 'signup' %}" class="btn btn-primary">Get Started</a>
+            </div>
+        {% endif %}
+    </section>
+
+    <!-- Blog Posts Section -->
+    <section class="section">
+        <h2 class="section-title">Latest Posts</h2>
+
+        {% if blog_posts %}
+            <div style="display: grid; gap: var(--spacing-lg);">
+                {% for post in blog_posts %}
+                    <!-- Blog Post Card -->
+                    <!-- Maps to Figma: Blog Card Component (Square shape with content) -->
+                    <div class="card">
+                        <div class="card-image-wrapper">
+                            {% if forloop.counter|divisibleby:2 %}
+                                <img src="{% static 'images/post2.svg' %}" alt="Post image" class="card-image" style="width:100%; height:auto; border-top-left-radius:8px; border-top-right-radius:8px;">
+                            {% else %}
+                                <img src="{% static 'images/post1.svg' %}" alt="Post image" class="card-image" style="width:100%; height:auto; border-top-left-radius:8px; border-top-right-radius:8px;">
+                            {% endif %}
+                        </div>
+
+                        <div class="card-header">
+                            <div>
+                                <h3 class="card-title">
+                                    <a href="{% url 'blog_detail' post.id %}">{{ post.title }}</a>
+                                </h3>
+                                <div class="card-subtitle">
+                                    By <strong>{{ post.author.get_full_name|default:post.author.username }}</strong> 
+                                    on {{ post.created_at|date:"F d, Y" }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-content">
+                            {{ post.get_excerpt }}
+                        </div>
+
+                        <div class="card-footer">
+                            <span>{{ post.views_count }} views</span>
+                            <a href="{% url 'blog_detail' post.id %}" class="btn btn-tertiary">
+                                Read More →
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <!-- Empty State -->
+            <div style="text-align: center; padding: var(--spacing-xl); background-color: var(--secondary-gray-light); border-radius: 8px;">
+                <h3>No Posts Yet</h3>
+                <p style="color: var(--secondary-gray-medium); margin-bottom: var(--spacing-lg);">
+                    Be the first to share your thoughts and ideas!
+                </p>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'create_blog' %}" class="btn btn-primary">Create First Post</a>
+                {% else %}
+                    <a href="{% url 'signup' %}" class="btn btn-primary">Sign Up to Create</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}

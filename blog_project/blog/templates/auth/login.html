@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Log In - Blog Platform{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="form-container">
+        <!-- Form Header -->
+        <div class="form-header">
+            <img src="{% static 'images/avatar-default.svg' %}" alt="Welcome back" style="height:72px; margin-bottom: var(--spacing-md);">
+            <h1>Welcome Back</h1>
+            <p>Log in to access your account and continue reading</p>
+        </div>
+
+        <!-- Log In Form -->
+        <!-- Maps to Figma: Log In Page - Form with input fields -->
+        <form method="POST" novalidate>
+            {% csrf_token %}
+
+            <!-- Username/Email Field -->
+            <div class="form-group">
+                <label for="{{ form.username.id_for_label }}" class="form-label form-label-required">
+                    Username or Email
+                </label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <span class="form-error">{{ form.username.errors.0 }}</span>
+                {% endif %}
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group">
+                <label for="{{ form.password.id_for_label }}" class="form-label form-label-required">
+                    Password
+                </label>
+                {{ form.password }}
+                {% if form.password.errors %}
+                    <span class="form-error">{{ form.password.errors.0 }}</span>
+                {% endif %}
+            </div>
+
+            <!-- Forgot Password Link -->
+            <!-- Maps to Figma: Link Component (Accent Blue) -->
+            <div style="text-align: right; margin-bottom: var(--spacing-lg);">
+                <a href="#" class="btn btn-tertiary">Forgot your password?</a>
+            </div>
+
+            <!-- Log In Button -->
+            <!-- Maps to Figma: Button/Primary Component -->
+            <button type="submit" class="btn btn-primary btn-full">Log In</button>
+        </form>
+
+        <!-- Navigation Link to Sign Up -->
+        <!-- Maps to Figma: Navigation Link Component -->
+        <div class="form-footer">
+            Don't have an account?
+            <a href="{% url 'signup' %}">Sign Up</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
